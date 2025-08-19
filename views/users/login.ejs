@@ -1,9 +1,7 @@
 <% layout("/layouts/boilerplate.ejs") %>
 <div class="row mt-3">
     <div class="col-6 offset-3">
-        <form action="/login"  method="post" class="needs-validation" novalidate>
-
-
+        <form action="/login" method="POST" class="needs-validation" novalidate>
 
             <h3 class="text-center">Login</h3>
             <div class="mb-3">
@@ -12,14 +10,15 @@
                 <div class="invalid-feedback">Please enter a username</div>
             </div>
 
-          
             <div class="mb-3">
                 <label for="password" class="form-label">Password</label>
                 <input type="password" class="form-control" id="password" name="password" required>
                 <div class="invalid-feedback">Please enter a password</div>
             </div>
-
-            <button type="submit" class="btn btn-dark col-12">Login</button>
+            <div class="mb-3 text-end">
+                <a href="/forgot-password" class="link-secondary" style="font-size:0.95rem;">Forgot Password?</a>
+            </div>
+            <button type="submit" class="btn btn-dark w-100">Login</button>
         </form>
 
     </div>

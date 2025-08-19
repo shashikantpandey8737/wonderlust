@@ -104,3 +104,7 @@ module.exports.searchListings = async (req, res) => {
     });
     res.render("listings/index.ejs", { listings });
 };
+
+
+
+

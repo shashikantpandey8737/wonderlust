@@ -22,11 +22,17 @@ router.route("/login")
         usersController.login
     );
 
-
-
 router.get('/logout',usersController.logout);
 
+router.get('/forgot-password', (req, res) => {
+    res.render('users/forgot-password');
+});
 
+router.post('/forgot-password', async (req, res) => {
+    // Yahan aap email bhejne ka logic ya flash message laga sakte hain
+    req.flash('success', 'If this email exists, a reset link will be sent.');
+    res.redirect('/login');
+});
 
 
 
