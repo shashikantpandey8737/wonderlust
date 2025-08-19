@@ -104,19 +104,9 @@ module.exports.searchListings = async (req, res) => {
     });
     res.render("listings/index.ejs", { listings });
 };
-
-// GET Forgot Password page
-app.get("/forgot-password", (req, res) => {
-  res.render("users/forgot-password"); 
-});
-
-// POST Forgot Password form
-app.post("/forgot-password", (req, res) => {
-  const { email } = req.body;
-  // Yaha pe apni reset-password logic likho
-  console.log("Reset link send to:", email);
-  res.send("Reset link has been sent to your email!");
-});
+module.exports.getForgotPassword = (req, res) => {
+  res.render("users/forgot-password"); // looks inside views/users/forgot-password.ejs
+};
 
 
 
