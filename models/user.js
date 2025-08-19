@@ -1,16 +1,17 @@
 const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
 const passportLocalMongoose = require('passport-local-mongoose');
 
-const userSchema = new Schema({ 
-   
+const userSchema = new mongoose.Schema({
     email: {
         type: String,
         required: true,
-        
+        unique: true
     },
- 
-    
+    resetPasswordToken: String,
+    resetPasswordExpires: Date
 });
-userSchema.plugin(passportLocalMongoose);
+
+// ✅ Email ko username field bana rahe hain
+userSchema.plugin(passportLocalMongoose, { usernameField: 'email' });
+
 module.exports = mongoose.model('User', userSchema);
