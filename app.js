@@ -66,6 +66,20 @@ const store = MongoStore.create({
     touchAfter: 24 * 3600, // time in seconds
 
 });
+// GET Forgot Password page
+app.get("/forgot-password", (req, res) => {
+  res.render("users/forgot-password"); 
+});
+
+// POST Forgot Password form
+app.post("/forgot-password", (req, res) => {
+  const { email } = req.body;
+  // Yaha pe apni reset-password logic likho
+  console.log("Reset link send to:", email);
+  res.send("Reset link has been sent to your email!");
+});
+
+
 
 store.on('error', function (e) {
     console.log('Session store error', e);
