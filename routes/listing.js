@@ -6,51 +6,44 @@ const Listing = require('../models/listing.js');
 const { isLoggedIn, isOwner, validateListing } = require('../middleware.js');
 const listingsController = require('../controllers/listings.js');
 const multer  = require('multer');
-const {storage} = require('../cloudConfig.js'); 
+const { storage } = require('../cloudConfig.js'); 
 
-const upload = multer({ storage});
+const upload = multer({ storage });
 
-// Search listingsconst express = require("express");
+// 🔹 Search listings
+router.get("/search", wrapAsync(listingsController.searchListings));
 
-const listings = require("../controllers/listings");
+// 🔹 Index / list all listings
+router.get("/", wrapAsync(listingsController.index));
 
-router.get("/search", listings.searchListings);
-// ...baaki routes...
- 
-//create a new listing
-router.route("/")
-    .get(wrapAsync(listingsController.index))
-    .post(
-        isLoggedIn,
-        upload.single('listing[image]'), // <-- yahan sirf [image]
-        validateListing,
-        wrapAsync(listingsController.createListing)
-    );
-
+// 🔹 Create new listing
 router.get("/new", isLoggedIn, listingsController.renderNewForm);
 
-// update a listing
-router.route("/:id")
-    .get(wrapAsync(listingsController.showListing))
-    .put(
-        isLoggedIn,
-        isOwner,
-        upload.single('listing[image]'),
-        validateListing,
-        wrapAsync(listingsController.updateListing)
-    )
-    .delete(isLoggedIn, isOwner, wrapAsync(listingsController.deleteListing));
+router.post(
+    "/",
+    isLoggedIn,
+    upload.single('listing[image]'),  // image upload
+    validateListing,
+    wrapAsync(listingsController.createListing)
+);
 
-// edit a listing
+// 🔹 Show single listing
+router.get("/:id", wrapAsync(listingsController.showListing));
+
+// 🔹 Edit listing
 router.get("/:id/edit", isLoggedIn, isOwner, wrapAsync(listingsController.renderEditForm));
 
-router.get('/:id', async (req, res) => {
-    const { id } = req.params;
-    const listing = await Listing.findById(id).populate('author');
-    if (!listing) {
-        req.flash('error', 'Cannot find that listing!');
-        return res.redirect('/listings');
-    }
-});
+// 🔹 Update listing
+router.put(
+    "/:id",
+    isLoggedIn,
+    isOwner,
+    upload.single('listing[image]'),
+    validateListing,
+    wrapAsync(listingsController.updateListing)
+);
+
+// 🔹 Delete listing
+router.delete("/:id", isLoggedIn, isOwner, wrapAsync(listingsController.deleteListing));
 
 module.exports = router;

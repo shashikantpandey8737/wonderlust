@@ -25,16 +25,19 @@
         <input class="form-control me-2" type="search" name="q" placeholder="Search destinations"/>
         <button class="btn btn-search" type="submit">Search</button>
       </form>
-      <div class="navbar-nav ms-auto align-items-center">
-        <a class="nav-link" href="/listings/new">Airbnb your home</a>
-        <% if (!currUser) { %>
-          <a class="nav-link active" aria-current="page" href="/signup"><b>Sign up</b></a>
-          <a class="nav-link" href="/login"><b>Login</b></a>
-        <% } %>
-        <% if (currUser) { %>
-          <a class="nav-link" href="/logout"><b>Logout</b></a>
-        <% } %>
-      </div>
+     <div class="navbar-nav ms-auto align-items-center">
+  <a class="nav-link" href="/listings/new">Airbnb your home</a>
+
+  <% if (!currentUser) { %>
+    <a class="nav-link active" aria-current="page" href="/signup"><b>Sign up</b></a>
+    <a class="nav-link" href="/login"><b>Login</b></a>
+  <% } %>
+
+  <% if (currentUser) { %>
+    <a class="nav-link" href="/logout"><b>Logout</b></a>
+  <% } %>
+</div>
+
     </div>
   </div>
 </nav>

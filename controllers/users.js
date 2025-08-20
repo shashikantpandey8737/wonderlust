@@ -1,4 +1,6 @@
 const User = require("../models/user");
+const nodemailer = require("nodemailer");
+
 
 // Signup form render
 module.exports.renderSignupForm = (req, res) => {
