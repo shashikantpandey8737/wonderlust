@@ -16,20 +16,27 @@ module.exports.renderNewForm = (req, res) => {
 }
 
 module.exports.showListing = async (req, res) => {
-    let { id } = req.params;
-    const listing = await Listing.findById(id)
-        .populate({
-            path: "reviews",
-            populate: { path: "owner" }
-        })
-        .populate("owner"); 
-
-    if (!listing) {
-        req.flash("error", "Cannot find that listing!");
-        return res.redirect("/listings");
-    }
-    res.render("listings/show.ejs", { listing });
+    const { id } = req.params;
+    const listing = await Listing.findById(id).populate("owner");
+    res.render("listings/show", { listing, currUser: req.user });
 };
+
+
+// module.exports.showListing = async (req, res) => {
+//     let { id } = req.params;
+//     const listing = await Listing.findById(id)
+//         .populate({
+//             path: "reviews",
+//             populate: { path: "owner" }
+//         })
+//         .populate("owner"); 
+
+//     if (!listing) {
+//         req.flash("error", "Cannot find that listing!");
+//         return res.redirect("/listings");
+//     }
+//     res.render("listings/show.ejs", { listing });
+// };
 
 // Create a new listing
 
